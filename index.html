@@ -222,7 +222,6 @@
   </section>
 
 <!-- Commissions Section -->
-
 <section id="commissions" class="section">
   <div class="container">
     <h2 class="section-title">Commission Requests</h2>
@@ -230,16 +229,12 @@
       Tell me what you want, attach reference images, and I’ll respond with price + timeline.
     </p>
 
-    <!-- IMPORTANT:
-      Replace the action URL with your Formspree or Basin endpoint.
-      - Formspree supports file uploads with limits per submission. :contentReference[oaicite:2]{index=2}
-      - Basin supports file uploads when the form uses multipart encoding. :contentReference[oaicite:3]{index=3}
-    -->
-    <form class="contact-form" id="commissionForm"
-          action="PASTE_YOUR_FORM_ENDPOINT_HERE"
+    <form class="contact-form"
+          name="commission"
           method="POST"
-          enctype="multipart/form-data"
-          accept-charset="UTF-8">
+          data-netlify="true"
+          enctype="multipart/form-data">
+      <input type="hidden" name="form-name" value="commission">
 
       <div class="field-row">
         <div class="field">
@@ -280,20 +275,24 @@
       <div class="field">
         <label for="c_details">Describe your request</label>
         <textarea id="c_details" name="details" rows="6"
-          placeholder="Style, size, number of people/characters, background, deadline, etc." required></textarea>
+          placeholder="Style, size, number of people/characters, background, deadline, etc."
+          required></textarea>
       </div>
 
       <div class="field">
         <label for="c_refs">Reference images (optional)</label>
         <input id="c_refs" name="attachments" type="file" accept="image/*" multiple />
-        <p class="form-note">You can attach multiple images. Keep them reasonably sized.</p>
+        <p class="form-note">
+          You can attach multiple images. Keep them reasonably sized.
+        </p>
       </div>
 
       <button class="btn primary" type="submit">Send Request</button>
-      <p class="form-note" id="commissionNote"></p>
+      <p class="form-note">I usually reply within 24–48 hours.</p>
     </form>
   </div>
 </section>
+
 
 
 
@@ -306,27 +305,43 @@
       <h2 class="section-title">Contact</h2>
       <p class="section-text">Want to work together or ask a question? Send a message.</p>
 
-      <form class="contact-form" id="contactForm">
-        <div class="field-row">
-          <div class="field">
-            <label for="name">Name</label>
-            <input id="name" name="name" type="text" placeholder="Your name" required />
-          </div>
+<form class="contact-form" name="contact" method="POST" data-netlify="true">
+  <input type="hidden" name="form-name" value="contact">
 
-          <div class="field">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" placeholder="you@example.com" required />
-          </div>
-        </div>
+  <div class="contact-intro">
+    <p class="contact-hint">
+      I reply within <strong>24–48 hours</strong>. If this is a commission request, include timeline + references.
+    </p>
+  </div>
 
-        <div class="field">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="6" placeholder="Write your message..." required></textarea>
-        </div>
+  <div class="field-row">
+    <div class="field">
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" placeholder="Your name" required />
+    </div>
 
-        <button class="btn primary" type="submit">Send</button>
-        <p class="form-note" id="formNote"></p>
-      </form>
+    <div class="field">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" placeholder="you@example.com" required />
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="subject">Subject</label>
+    <input id="subject" name="subject" type="text" placeholder="UX / Figma, Artwork inquiry, Commission, etc." />
+  </div>
+
+  <div class="field">
+    <label for="message">Message</label>
+    <textarea id="message" name="message" rows="6" placeholder="Write your message..." required></textarea>
+  </div>
+
+  <div class="form-actions">
+    <button class="btn primary" type="submit">Send Message</button>
+    <p class="form-privacy">No spam — just replies.</p>
+  </div>
+</form>
+
     </div>
   </section>
 
