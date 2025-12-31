@@ -1,49 +1,41 @@
-// ---------- Smooth scrolling ----------
+// ---------- Smooth scrolling (only for valid in-page anchors) ----------
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
   link.addEventListener("click", (e) => {
+    const targetId = link.getAttribute("href");
+    if (!targetId || targetId === "#") return;
+
+    const targetEl = document.querySelector(targetId);
+    if (!targetEl) return; // don't prevent default if target doesn't exist
+
     e.preventDefault();
-    document.querySelector(link.getAttribute("href")).scrollIntoView({
-      behavior: "smooth",
-    });
+    targetEl.scrollIntoView({ behavior: "smooth" });
   });
 });
-//---------- AOS (Animate On Scroll) ----------
-AOS.init({
-  duration: 700,
-  once: true,
-  offset: 80
-});
 
 
-// ---------- Contact form (mailto) ----------
-const contactForm = document.getElementById("contactForm");
-const formNote = document.getElementById("formNote");
-
-if (contactForm) {
-  contactForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const message = document.getElementById("message").value.trim();
-
-    if (!name || !email || !message) {
-      if (formNote) formNote.textContent = "Please fill out all fields.";
-      return;
-    }
-
-    if (formNote) formNote.textContent = "Opening your email app…";
-
-    const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-    );
-
-    window.location.href = `mailto:you@example.com?subject=${subject}&body=${body}`;
+// ---------- AOS (Animate On Scroll) ----------
+if (window.AOS) {
+  AOS.init({
+    duration: 700,
+    once: true,
+    offset: 80,
   });
 }
 
-// ---------- Lightbox (works for featured carousel + any gallery grids) ----------
+
+// ---------- Navbar shrink + transparency on scroll ----------
+const navbar = document.querySelector(".navbar");
+
+function handleNavbarScroll() {
+  if (!navbar) return;
+  navbar.classList.toggle("is-scrolled", window.scrollY > 10);
+}
+
+window.addEventListener("scroll", handleNavbarScroll, { passive: true });
+handleNavbarScroll();
+
+
+// ---------- Lightbox (ONLY for gallery grids, not the hero carousel) ----------
 const lightbox = document.getElementById("lightbox");
 const lightboxImage = document.getElementById("lightboxImage");
 const lightboxAlt = document.getElementById("lightboxAlt");
@@ -52,28 +44,30 @@ const btnClose = document.getElementById("lightboxClose");
 const btnPrev = document.getElementById("lightboxPrev");
 const btnNext = document.getElementById("lightboxNext");
 
-// Collect images from featured carousel + any .gallery-grid
+// only gallery images open the lightbox
 const galleryImages = Array.from(document.querySelectorAll(".gallery-grid img"));
-const allImages = galleryImages;
-
 
 let currentIndex = 0;
 
 function setLightboxImage(index) {
+  if (!galleryImages.length) return;
+
   currentIndex = index;
-  const img = allImages[currentIndex];
+  const img = galleryImages[currentIndex];
   const src = img.getAttribute("src");
   const alt = img.getAttribute("alt") || "Artwork";
 
-  lightboxImage.setAttribute("src", src);
-  lightboxImage.setAttribute("alt", alt);
+  if (lightboxImage) {
+    lightboxImage.setAttribute("src", src);
+    lightboxImage.setAttribute("alt", alt);
+  }
 
-  if (lightboxCount) lightboxCount.textContent = `${currentIndex + 1} / ${allImages.length}`;
+  if (lightboxCount) lightboxCount.textContent = `${currentIndex + 1} / ${galleryImages.length}`;
   if (lightboxAlt) lightboxAlt.textContent = alt;
 }
 
 function openLightbox(index) {
-  if (!lightbox) return;
+  if (!lightbox || !galleryImages.length) return;
   setLightboxImage(index);
   lightbox.classList.add("is-open");
   lightbox.setAttribute("aria-hidden", "false");
@@ -88,27 +82,27 @@ function closeLightbox() {
 }
 
 function prevImage() {
-  const nextIndex = (currentIndex - 1 + allImages.length) % allImages.length;
+  const nextIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
   setLightboxImage(nextIndex);
 }
 
 function nextImage() {
-  const nextIndex = (currentIndex + 1) % allImages.length;
+  const nextIndex = (currentIndex + 1) % galleryImages.length;
   setLightboxImage(nextIndex);
 }
 
-// Attach click to open
-allImages.forEach((img, index) => {
+// attach click to open (gallery only)
+galleryImages.forEach((img, index) => {
   img.style.cursor = "zoom-in";
   img.addEventListener("click", () => openLightbox(index));
 });
 
-// Buttons
+// buttons
 if (btnClose) btnClose.addEventListener("click", closeLightbox);
 if (btnPrev) btnPrev.addEventListener("click", prevImage);
 if (btnNext) btnNext.addEventListener("click", nextImage);
 
-// Close when clicking backdrop
+// close when clicking backdrop (anything with data-close="true")
 if (lightbox) {
   lightbox.addEventListener("click", (e) => {
     const target = e.target;
@@ -118,7 +112,7 @@ if (lightbox) {
   });
 }
 
-// Keyboard controls
+// keyboard controls
 document.addEventListener("keydown", (e) => {
   if (!lightbox || !lightbox.classList.contains("is-open")) return;
 
@@ -127,11 +121,13 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") nextImage();
 });
 
-// ---------- Featured carousel auto-slide + dots + click-to-next ----------
+
+// ---------- Featured carousel: auto-slide + dots + click-to-next ----------
 const track = document.getElementById("featuredTrack");
 const dotsWrap = document.getElementById("featuredDots");
+const square = track ? track.closest(".featured-square") : null;
 
-// Images inside the featured carousel
+// images inside the featured carousel
 const featuredImages = Array.from(document.querySelectorAll(".featured-track img"));
 
 let slideIndex = 0;
@@ -144,18 +140,22 @@ function renderDots() {
 
   featuredImages.forEach((_, i) => {
     const dot = document.createElement("button");
+    dot.type = "button";
     dot.className = "featured-dot" + (i === slideIndex ? " is-active" : "");
     dot.setAttribute("aria-label", `Go to slide ${i + 1}`);
+
     dot.addEventListener("click", (e) => {
-      e.stopPropagation(); // prevent click-to-next on the carousel container
+      e.preventDefault();
+      e.stopPropagation(); // prevents click-to-next on the square
       goToSlide(i, true);
     });
+
     dotsWrap.appendChild(dot);
   });
 }
 
 function goToSlide(i, userInitiated = false) {
-  if (!track) return;
+  if (!track || featuredImages.length === 0) return;
 
   slideIndex = i;
   track.style.transform = `translateX(-${slideIndex * 100}%)`;
@@ -165,7 +165,7 @@ function goToSlide(i, userInitiated = false) {
 }
 
 function nextSlide() {
-  if (featuredImages.length === 0) return;
+  if (!track || featuredImages.length === 0) return;
   const next = (slideIndex + 1) % featuredImages.length;
   goToSlide(next);
 }
@@ -175,21 +175,19 @@ function restartAutoSlide() {
   slideTimer = setInterval(nextSlide, 3500);
 }
 
-// Init carousel
-if (featuredImages.length > 0 && track) {
+// init carousel
+if (track && featuredImages.length > 0) {
   goToSlide(0);
   restartAutoSlide();
 
-  const square = track.closest(".featured-square");
-
   if (square) {
-    // Click anywhere on the carousel to go to next slide
+    // click anywhere on the carousel to go to next slide
     square.addEventListener("click", () => {
       nextSlide();
       restartAutoSlide();
     });
 
-    // Pause on hover (desktop)
+    // pause on hover
     square.addEventListener("mouseenter", () => {
       if (slideTimer) clearInterval(slideTimer);
     });
