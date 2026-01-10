@@ -3,10 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Byron — Art & UX</title>
-
-  <!-- AOS (Animate On Scroll) -->
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <title>Byron Mutimusakwa — Character Illustrator & Visual Development Artist</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="108x108" href="assets/images/favicon.png" />
@@ -20,121 +17,251 @@
 
   <!-- Navigation -->
   <header class="navbar">
-    <a href="#top" class="logo" aria-label="Home">
-      <img src="assets/images/favicon.png" alt="Byron Mutimusakwa logo" />
-    </a>
+    <div class="container">
+      <a href="#top" class="logo" aria-label="Home">
+        <span class="logo-text">Byron Mutimusakwa</span>
+      </a>
 
-    <nav aria-label="Primary navigation">
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav aria-label="Primary navigation" class="nav" id="mainNav">
       <ul class="nav-links">
-        <li><a href="#art">Portfolio</a></li>
-        <li><a href="#ux">UX Design</a></li>
-        <li><a href="#commissions">Commissions</a></li>
+        <li><a href="#home">Home</a></li>
+        
+        <li class="nav-dropdown">
+          <a href="#character-concept" class="dropdown-toggle">Character Concept <span class="dropdown-arrow">▼</span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#character-concept">All Character Concepts</a></li>
+            <li><a href="#project-1">Project 1</a></li>
+            <li><a href="#project-2">Project 2</a></li>
+            <li><a href="#project-3">Project 3</a></li>
+            <li><a href="#misc">Misc.</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-dropdown">
+          <a href="#vis-dev" class="dropdown-toggle">Vis Dev <span class="dropdown-arrow">▼</span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#vis-dev">All Vis Dev</a></li>
+            <li><a href="#vis-dev-1">Project A</a></li>
+            <li><a href="#vis-dev-2">Project B</a></li>
+            <li><a href="#vis-dev-3">Project C</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-dropdown">
+          <a href="#illustration" class="dropdown-toggle">Illustration <span class="dropdown-arrow">▼</span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#illustration">All Illustrations</a></li>
+            <li><a href="#personal-illustration">Personal Illustration</a></li>
+            <li><a href="#commercial">Commercial Work</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-dropdown">
+          <a href="#professional" class="dropdown-toggle">Professional Work <span class="dropdown-arrow">▼</span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#professional">All Professional Work</a></li>
+            <li><a href="#character-design">Character Design</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#about">About Me</a></li>
         <li><a href="#contact">Contact</a></li>
-
-        <li class="cv-item">
-          <a class="cv-link" href="assets/cv.pdf" download>Download CV</a>
-        </li>
-
-        <li class="social-icons" aria-label="Social links">
-          <a href="https://www.instagram.com/byronsketch/" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
-              <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zm-5 3.2A4.8 4.8 0 1 0 16.8 12 4.8 4.8 0 0 0 12 7.2zm0 7.9A3.1 3.1 0 1 1 15.1 12 3.1 3.1 0 0 1 12 15.1zm4.9-8.9a1.1 1.1 0 1 0 1.1 1.1 1.1 1.1 0 0 0-1.1-1.1z"/>
-            </svg>
-          </a>
-
-          <a href="https://www.tiktok.com/@artsbyron" target="_blank" rel="noopener" aria-label="TikTok">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
-              <path d="M21 8.1c-1.4 0-2.8-.5-3.9-1.4v7.2a6.7 6.7 0 1 1-6.7-6.7c.3 0 .7 0 1 .1v3.6a2.9 2.9 0 1 0 2.1 2.8V2h3.5c.2 1.5 1.1 2.9 2.4 3.8.9.6 2 .9 3.1.9v3.4z"/>
-            </svg>
-          </a>
-
-          <a href="https://youtube.com/@byronsketch?si=hUBtHu80MPuXsgHQ" target="_blank" rel="noopener" aria-label="YouTube">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
-              <path d="M23.5 6.2s-.2-1.6-.9-2.3c-.9-.9-1.9-.9-2.4-1C16.9 2.5 12 2.5 12 2.5h0s-4.9 0-8.2.4c-.5.1-1.5.1-2.4 1-.7.7-.9 2.3-.9 2.3S0 8.1 0 10v1.9c0 1.9.5 3.8.5 3.8s.2 1.6.9 2.3c.9.9 2.1.9 2.6 1 1.9.2 8 .4 8 .4s4.9 0 8.2-.4c.5-.1 1.5-.1 2.4-1 .7-.7.9-2.3.9-2.3s.5-1.9.5-3.8V10c0-1.9-.5-3.8-.5-3.8zM9.5 13.8V8.2l5.3 2.8-5.3 2.8z"/>
-            </svg>
-          </a>
-        </li>
       </ul>
     </nav>
+    </div>
   </header>
 
-  <!-- Hero -->
+  <!-- Hero / Home -->
   <section id="home" class="hero">
-    <div class="hero-split container">
-      <!-- Left: Text -->
-      <div class="hero-left" data-aos="fade-up">
-        <p class="badge">Artist • UX Designer</p>
-        <h2 class="hero-title">I am both an artist and a designer.</h2>
-        <p class="hero-subtitle">
-          I believe that to be authentic is to show your whole self, so whether you would like to buy my art or explore my UX work, I want to share the full spectrum of my creativity.
-        </p>
+    <div class="container">
+      <h1 class="hero-title">Byron Mutimusakwa</h1>
+      <p class="hero-subtitle">Concept Design // Illustration</p>
+    </div>
+  </section>
 
-        <div class="hero-actions">
-          <a class="btn primary" href="#art">View Portfolio</a>
-          <a class="btn secondary" href="#contact">Contact Me</a>
-        </div>
-
-        <div class="pill-row">
-          <span class="pill">Illustration</span>
-          <span class="pill">Character Design</span>
-          <span class="pill">UX Design</span>
-        </div>
-      </div>
-
-      <!-- Right: Featured square carousel -->
-      <div class="hero-right" data-aos="fade-up">
-        <div class="featured-wrap hero-featured">
-          <div class="featured-square" aria-label="Featured artwork carousel">
-            <div class="featured-track" id="featuredTrack">
-              <img src="assets/images/image1.png" alt="Artwork 1" />
-              <img src="assets/images/image2.jpg" alt="Artwork 2" />
-              <img src="assets/images/image3.png" alt="Artwork 3" />
-              <img src="assets/images/image4.png" alt="Artwork 4" />
+  <!-- Portfolio Grid -->
+  <main class="portfolio-main">
+    <div class="container">
+      <div class="portfolio-grid" id="portfolioGrid">
+        <!-- Portfolio Item 1 -->
+        <div class="portfolio-item" data-project="Project: Wrath of Dogs">
+          <div class="portfolio-image-wrapper">
+            <img src="assets/images/image1.png" alt="Project: Wrath of Dogs" />
+            <div class="portfolio-overlay">
+              <p class="portfolio-project">Project: Wrath of Dogs</p>
+              <p class="portfolio-action">Click to view</p>
             </div>
           </div>
-
-          <div class="featured-dots" id="featuredDots" aria-label="Carousel position"></div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Portfolio -->
-  <section id="art" class="section">
-    <div class="container">
-      <h2 class="section-title">Portfolio</h2>
-      <p class="section-text">More pieces. Click any image to view full screen.</p>
-
-      <div class="gallery-grid">
-        <img src="assets/images/image1.png" alt="Artwork 1" />
-        <img src="assets/images/image2.jpg" alt="Artwork 2" />
-        <img src="assets/images/image3.png" alt="Artwork 3" />
-        <img src="assets/images/image4.png" alt="Artwork 4" />
-      </div>
-    </div>
-  </section>
-
-  <!-- UX / Figma -->
-  <section id="ux" class="section">
-    <div class="container">
-      <h2 class="section-title">UX Design</h2>
-      <p class="section-text">Selected UX case studies and UI explorations. (We can embed Figma previews next.)</p>
-
-      <div class="projects-grid">
-        <div class="card">
-          <h3 class="card-title">Case Study #1</h3>
-          <p class="card-text">Problem → process → wireframes → final UI.</p>
-          <div class="card-actions">
-            <a class="link" href="#" target="_blank" rel="noopener">Figma</a>
-            <a class="link" href="#" target="_blank" rel="noopener">Case Study</a>
+        <!-- Portfolio Item 2 -->
+        <div class="portfolio-item" data-project="Project: City of Brass">
+          <div class="portfolio-image-wrapper">
+            <img src="assets/images/image2.jpg" alt="Project: City of Brass" />
+            <div class="portfolio-overlay">
+              <p class="portfolio-project">Project: City of Brass</p>
+              <p class="portfolio-action">Click to View</p>
+            </div>
           </div>
         </div>
 
-        <div class="card">
-          <h3 class="card-title">UI Exploration</h3>
-          <p class="card-text">Components, layouts, and interactions.</p>
-          <div class="card-actions">
-            <a class="link" href="#" target="_blank" rel="noopener">Figma</a>
+        <!-- Portfolio Item 3 -->
+        <div class="portfolio-item" data-project="Dota 2 International Battlepass">
+          <div class="portfolio-image-wrapper">
+            <img src="assets/images/image3.png" alt="Dota 2 International Battlepass" />
+            <div class="portfolio-overlay">
+              <p class="portfolio-project">Dota 2 International Battlepass</p>
+              <p class="portfolio-action">Click to View</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Portfolio Item 4 -->
+        <div class="portfolio-item" data-project="Project: Wandering Mother">
+          <div class="portfolio-image-wrapper">
+            <img src="assets/images/image4.png" alt="Project: Wandering Mother" />
+            <div class="portfolio-overlay">
+              <p class="portfolio-project">Project: Wandering Mother</p>
+              <p class="portfolio-action">Click to view</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Portfolio Item 5 -->
+        <div class="portfolio-item" data-project="Project: Neurofall">
+          <div class="portfolio-image-wrapper">
+            <img src="assets/images/image1.png" alt="Project: Neurofall" />
+            <div class="portfolio-overlay">
+              <p class="portfolio-project">Project: Neurofall</p>
+              <p class="portfolio-action">Click to view</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Portfolio Item 6 -->
+        <div class="portfolio-item" data-project="Project: Ortho Iso">
+          <div class="portfolio-image-wrapper">
+            <img src="assets/images/image2.jpg" alt="Project: Ortho Iso" />
+            <div class="portfolio-overlay">
+              <p class="portfolio-project">Project: Ortho Iso</p>
+              <p class="portfolio-action">Click to view</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Portfolio Item 7 -->
+        <div class="portfolio-item" data-project="Project: Awakened Dreams">
+          <div class="portfolio-image-wrapper">
+            <img src="assets/images/image3.png" alt="Project: Awakened Dreams" />
+            <div class="portfolio-overlay">
+              <p class="portfolio-project">Project: Awakened Dreams</p>
+              <p class="portfolio-action">Click to View</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Character Concept Section -->
+  <section id="character-concept" class="section">
+    <div class="container">
+      <h2 class="section-title">Character Concept</h2>
+      <div class="portfolio-grid">
+        <div class="portfolio-item" data-project="Character Concept 1">
+          <div class="portfolio-image-wrapper">
+            <img src="assets/images/image1.png" alt="Character Concept 1" />
+            <div class="portfolio-overlay">
+              <p class="portfolio-project">Character Concept 1</p>
+              <p class="portfolio-action">Click to view</p>
+            </div>
+          </div>
+        </div>
+        <div class="portfolio-item" data-project="Character Concept 2">
+          <div class="portfolio-image-wrapper">
+            <img src="assets/images/image2.jpg" alt="Character Concept 2" />
+            <div class="portfolio-overlay">
+              <p class="portfolio-project">Character Concept 2</p>
+              <p class="portfolio-action">Click to view</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vis Dev Section -->
+  <section id="vis-dev" class="section">
+    <div class="container">
+      <h2 class="section-title">Vis Dev</h2>
+      <div class="portfolio-grid">
+        <div class="portfolio-item" data-project="Vis Dev Project 1">
+          <div class="portfolio-image-wrapper">
+            <img src="assets/images/image3.png" alt="Vis Dev Project 1" />
+            <div class="portfolio-overlay">
+              <p class="portfolio-project">Vis Dev Project 1</p>
+              <p class="portfolio-action">Click to view</p>
+            </div>
+          </div>
+        </div>
+        <div class="portfolio-item" data-project="Vis Dev Project 2">
+          <div class="portfolio-image-wrapper">
+            <img src="assets/images/image4.png" alt="Vis Dev Project 2" />
+            <div class="portfolio-overlay">
+              <p class="portfolio-project">Vis Dev Project 2</p>
+              <p class="portfolio-action">Click to view</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Illustration Section -->
+  <section id="illustration" class="section">
+    <div class="container">
+      <h2 class="section-title">Illustration</h2>
+      <div class="portfolio-grid">
+        <div class="portfolio-item" data-project="Illustration 1">
+          <div class="portfolio-image-wrapper">
+            <img src="assets/images/image1.png" alt="Illustration 1" />
+            <div class="portfolio-overlay">
+              <p class="portfolio-project">Illustration 1</p>
+              <p class="portfolio-action">Click to view</p>
+            </div>
+          </div>
+        </div>
+        <div class="portfolio-item" data-project="Illustration 2">
+          <div class="portfolio-image-wrapper">
+            <img src="assets/images/image2.jpg" alt="Illustration 2" />
+            <div class="portfolio-overlay">
+              <p class="portfolio-project">Illustration 2</p>
+              <p class="portfolio-action">Click to view</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Professional Work Section -->
+  <section id="professional" class="section">
+    <div class="container">
+      <h2 class="section-title">Professional Work</h2>
+      <div class="portfolio-grid">
+        <div class="portfolio-item" data-project="Professional Work 1">
+          <div class="portfolio-image-wrapper">
+            <img src="assets/images/image3.png" alt="Professional Work 1" />
+            <div class="portfolio-overlay">
+              <p class="portfolio-project">Professional Work 1</p>
+              <p class="portfolio-action">Click to view</p>
+            </div>
           </div>
         </div>
       </div>
@@ -144,114 +271,13 @@
   <!-- About -->
   <section id="about" class="section about">
     <div class="container">
-      <h2 class="section-title">About</h2>
+      <h2 class="section-title">About Me</h2>
       <p class="section-text">
-        Hi, I’m <strong>Byron</strong>. I’m learning web development by and User Experience Design.
-        I enjoy creating clean designs, smooth interactions, and projects that feel polished.
-        When I’m not designing, I’m usually sketching characters,or painting digitally, All my art is hand-drawn, even in a world full of AI slop.
+        Hi, I'm <strong>Byron Mutimusakwa</strong>. I'm a character illustrator and visual development artist.
+        I enjoy creating compelling character designs, rich visual narratives, and bringing stories to life through art.
+        When I'm not working on professional projects, I'm usually sketching characters or painting digitally. 
+        All my art is hand-drawn, even in a world full of AI-generated content.
       </p>
-
-      <div class="pill-row">
-        <span class="pill">HTML</span>
-        <span class="pill">CSS</span>
-        <span class="pill">JavaScript</span>
-        <span class="pill">Responsive Design</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Print Shop -->
-  <section id="prints" class="section">
-    <div class="container">
-      <h2 class="section-title">Print Shop</h2>
-      <p class="section-text">Limited prints and digital designs. Secure checkout via payment links.</p>
-
-      <div class="projects-grid">
-        <div class="card">
-          <h3 class="card-title">Print #1 — “Coming Soon”</h3>
-          <p class="card-text">A4 / A3 options. High-quality print.</p>
-          <div class="card-actions">
-            <a class="btn primary" href="#">Buy</a>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3 class="card-title">Print #2 — “Coming Soon”</h3>
-          <p class="card-text">Signed print (limited).</p>
-          <div class="card-actions">
-            <a class="btn primary" href="#">Buy</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Commissions -->
-  <section id="commissions" class="section">
-    <div class="container">
-      <h2 class="section-title">Commission Requests</h2>
-      <p class="section-text">Tell me what you want, attach reference images, and I’ll respond with price + timeline.</p>
-
-      <form class="contact-form"
-            name="commission"
-            method="POST"
-            data-netlify="true"
-            enctype="multipart/form-data">
-        <input type="hidden" name="form-name" value="commission" />
-
-        <div class="field-row">
-          <div class="field">
-            <label for="c_name">Name</label>
-            <input id="c_name" name="name" type="text" placeholder="Your name" required />
-          </div>
-
-          <div class="field">
-            <label for="c_email">Email</label>
-            <input id="c_email" name="email" type="email" placeholder="you@example.com" required />
-          </div>
-        </div>
-
-        <div class="field-row">
-          <div class="field">
-            <label for="c_type">Commission Type</label>
-            <select id="c_type" name="commission_type" required>
-              <option value="">Select one…</option>
-              <option>Portrait</option>
-              <option>Character Design</option>
-              <option>Cover / Poster</option>
-              <option>Other</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="c_budget">Budget Range</label>
-            <select id="c_budget" name="budget" required>
-              <option value="">Select one…</option>
-              <option>$50–$100</option>
-              <option>$100–$250</option>
-              <option>$250–$500</option>
-              <option>$500+</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="c_details">Describe your request</label>
-          <textarea id="c_details" name="details" rows="6"
-            placeholder="Style, size, number of people/characters, background, deadline, etc." required></textarea>
-        </div>
-
-        <div class="field">
-          <label for="c_refs">Reference images (optional)</label>
-          <input id="c_refs" name="attachments" type="file" accept="image/*" multiple />
-          <p class="form-note">You can attach multiple images. Keep them reasonably sized.</p>
-        </div>
-
-        <div class="form-actions">
-          <button class="btn primary" type="submit">Send Request</button>
-          <p class="form-privacy">I usually reply within 24–48 hours.</p>
-        </div>
-      </form>
     </div>
   </section>
 
@@ -263,12 +289,6 @@
 
       <form class="contact-form" name="contact" method="POST" data-netlify="true">
         <input type="hidden" name="form-name" value="contact" />
-
-        <div class="contact-intro">
-          <p class="contact-hint">
-            I reply within <strong>24–48 hours</strong>. If this is a commission request, include timeline + references.
-          </p>
-        </div>
 
         <div class="field-row">
           <div class="field">
@@ -284,7 +304,7 @@
 
         <div class="field">
           <label for="subject">Subject</label>
-          <input id="subject" name="subject" type="text" placeholder="UX / Figma, Artwork inquiry, Commission, etc." />
+          <input id="subject" name="subject" type="text" placeholder="Project inquiry, Commission, Collaboration, etc." />
         </div>
 
         <div class="field">
@@ -294,15 +314,29 @@
 
         <div class="form-actions">
           <button class="btn primary" type="submit">Send Message</button>
-          <p class="form-privacy">No spam — just replies.</p>
+          <p class="form-privacy">I usually reply within 24–48 hours.</p>
         </div>
       </form>
+
+      <div class="social-links">
+        <a href="https://www.instagram.com/byronsketch/" target="_blank" rel="noopener" aria-label="Instagram">
+          Instagram
+        </a>
+        <a href="https://www.tiktok.com/@artsbyron" target="_blank" rel="noopener" aria-label="TikTok">
+          TikTok
+        </a>
+        <a href="https://youtube.com/@byronsketch?si=hUBtHu80MPuXsgHQ" target="_blank" rel="noopener" aria-label="YouTube">
+          YouTube
+        </a>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="footer">
-    <p>© ByronsArt</p>
+    <div class="container">
+      <p>© 2024 Byron Mutimusakwa</p>
+    </div>
   </footer>
 
   <!-- Lightbox Modal -->
@@ -323,7 +357,6 @@
     </div>
   </div>
 
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

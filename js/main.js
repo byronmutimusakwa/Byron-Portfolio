@@ -8,22 +8,19 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     if (!targetEl) return; // don't prevent default if target doesn't exist
 
     e.preventDefault();
-    targetEl.scrollIntoView({ behavior: "smooth" });
+    targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    
+    // Close mobile menu if open
+    const nav = document.getElementById("mainNav");
+    const menuToggle = document.getElementById("mobileMenuToggle");
+    if (nav && nav.classList.contains("is-open")) {
+      nav.classList.remove("is-open");
+      menuToggle.setAttribute("aria-expanded", "false");
+    }
   });
 });
 
-
-// ---------- AOS (Animate On Scroll) ----------
-if (window.AOS) {
-  AOS.init({
-    duration: 700,
-    once: true,
-    offset: 80,
-  });
-}
-
-
-// ---------- Navbar shrink + transparency on scroll ----------
+// ---------- Navbar shrink on scroll ----------
 const navbar = document.querySelector(".navbar");
 
 function handleNavbarScroll() {
@@ -34,8 +31,27 @@ function handleNavbarScroll() {
 window.addEventListener("scroll", handleNavbarScroll, { passive: true });
 handleNavbarScroll();
 
+// ---------- Mobile Menu Toggle ----------
+const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+const mainNav = document.getElementById("mainNav");
 
-// ---------- Lightbox (ONLY for gallery grids, not the hero carousel) ----------
+if (mobileMenuToggle && mainNav) {
+  mobileMenuToggle.addEventListener("click", () => {
+    const isOpen = mainNav.classList.contains("is-open");
+    mainNav.classList.toggle("is-open");
+    mobileMenuToggle.setAttribute("aria-expanded", !isOpen);
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!mainNav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+      mainNav.classList.remove("is-open");
+      mobileMenuToggle.setAttribute("aria-expanded", "false");
+    }
+  });
+}
+
+// ---------- Lightbox for Portfolio Items ----------
 const lightbox = document.getElementById("lightbox");
 const lightboxImage = document.getElementById("lightboxImage");
 const lightboxAlt = document.getElementById("lightboxAlt");
@@ -44,30 +60,32 @@ const btnClose = document.getElementById("lightboxClose");
 const btnPrev = document.getElementById("lightboxPrev");
 const btnNext = document.getElementById("lightboxNext");
 
-// only gallery images open the lightbox
-const galleryImages = Array.from(document.querySelectorAll(".gallery-grid img"));
+// Get all portfolio images
+const portfolioItems = Array.from(document.querySelectorAll(".portfolio-item"));
+const portfolioImages = Array.from(document.querySelectorAll(".portfolio-item img"));
 
 let currentIndex = 0;
 
 function setLightboxImage(index) {
-  if (!galleryImages.length) return;
+  if (!portfolioImages.length) return;
 
   currentIndex = index;
-  const img = galleryImages[currentIndex];
+  const img = portfolioImages[currentIndex];
   const src = img.getAttribute("src");
-  const alt = img.getAttribute("alt") || "Artwork";
+  const projectName = img.closest(".portfolio-item")?.dataset.project || "Artwork";
+  const alt = img.getAttribute("alt") || projectName;
 
   if (lightboxImage) {
     lightboxImage.setAttribute("src", src);
     lightboxImage.setAttribute("alt", alt);
   }
 
-  if (lightboxCount) lightboxCount.textContent = `${currentIndex + 1} / ${galleryImages.length}`;
-  if (lightboxAlt) lightboxAlt.textContent = alt;
+  if (lightboxCount) lightboxCount.textContent = `${currentIndex + 1} / ${portfolioImages.length}`;
+  if (lightboxAlt) lightboxAlt.textContent = projectName;
 }
 
 function openLightbox(index) {
-  if (!lightbox || !galleryImages.length) return;
+  if (!lightbox || !portfolioImages.length) return;
   setLightboxImage(index);
   lightbox.classList.add("is-open");
   lightbox.setAttribute("aria-hidden", "false");
@@ -82,27 +100,26 @@ function closeLightbox() {
 }
 
 function prevImage() {
-  const nextIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+  const nextIndex = (currentIndex - 1 + portfolioImages.length) % portfolioImages.length;
   setLightboxImage(nextIndex);
 }
 
 function nextImage() {
-  const nextIndex = (currentIndex + 1) % galleryImages.length;
+  const nextIndex = (currentIndex + 1) % portfolioImages.length;
   setLightboxImage(nextIndex);
 }
 
-// attach click to open (gallery only)
-galleryImages.forEach((img, index) => {
-  img.style.cursor = "zoom-in";
-  img.addEventListener("click", () => openLightbox(index));
+// Attach click handlers to portfolio items
+portfolioItems.forEach((item, index) => {
+  item.addEventListener("click", () => openLightbox(index));
 });
 
-// buttons
+// Lightbox controls
 if (btnClose) btnClose.addEventListener("click", closeLightbox);
 if (btnPrev) btnPrev.addEventListener("click", prevImage);
 if (btnNext) btnNext.addEventListener("click", nextImage);
 
-// close when clicking backdrop (anything with data-close="true")
+// Close when clicking backdrop
 if (lightbox) {
   lightbox.addEventListener("click", (e) => {
     const target = e.target;
@@ -112,7 +129,7 @@ if (lightbox) {
   });
 }
 
-// keyboard controls
+// Keyboard controls
 document.addEventListener("keydown", (e) => {
   if (!lightbox || !lightbox.classList.contains("is-open")) return;
 
@@ -121,77 +138,28 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") nextImage();
 });
 
+// ---------- Dropdown Menu Toggle (Mobile) ----------
+const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
 
-// ---------- Featured carousel: auto-slide + dots + click-to-next ----------
-const track = document.getElementById("featuredTrack");
-const dotsWrap = document.getElementById("featuredDots");
-const square = track ? track.closest(".featured-square") : null;
-
-// images inside the featured carousel
-const featuredImages = Array.from(document.querySelectorAll(".featured-track img"));
-
-let slideIndex = 0;
-let slideTimer = null;
-
-function renderDots() {
-  if (!dotsWrap) return;
-
-  dotsWrap.innerHTML = "";
-
-  featuredImages.forEach((_, i) => {
-    const dot = document.createElement("button");
-    dot.type = "button";
-    dot.className = "featured-dot" + (i === slideIndex ? " is-active" : "");
-    dot.setAttribute("aria-label", `Go to slide ${i + 1}`);
-
-    dot.addEventListener("click", (e) => {
+dropdownToggles.forEach((toggle) => {
+  toggle.addEventListener("click", (e) => {
+    // Only prevent default on mobile (when nav is open)
+    const nav = document.getElementById("mainNav");
+    if (nav && nav.classList.contains("is-open")) {
       e.preventDefault();
-      e.stopPropagation(); // prevents click-to-next on the square
-      goToSlide(i, true);
-    });
-
-    dotsWrap.appendChild(dot);
+      const dropdown = toggle.closest(".nav-dropdown");
+      dropdown?.classList.toggle("active");
+    }
   });
-}
 
-function goToSlide(i, userInitiated = false) {
-  if (!track || featuredImages.length === 0) return;
-
-  slideIndex = i;
-  track.style.transform = `translateX(-${slideIndex * 100}%)`;
-  renderDots();
-
-  if (userInitiated) restartAutoSlide();
-}
-
-function nextSlide() {
-  if (!track || featuredImages.length === 0) return;
-  const next = (slideIndex + 1) % featuredImages.length;
-  goToSlide(next);
-}
-
-function restartAutoSlide() {
-  if (slideTimer) clearInterval(slideTimer);
-  slideTimer = setInterval(nextSlide, 3500);
-}
-
-// init carousel
-if (track && featuredImages.length > 0) {
-  goToSlide(0);
-  restartAutoSlide();
-
-  if (square) {
-    // click anywhere on the carousel to go to next slide
-    square.addEventListener("click", () => {
-      nextSlide();
-      restartAutoSlide();
-    });
-
-    // pause on hover
-    square.addEventListener("mouseenter", () => {
-      if (slideTimer) clearInterval(slideTimer);
-    });
-
-    square.addEventListener("mouseleave", () => restartAutoSlide());
-  }
-}
+  toggle.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      const dropdown = toggle.closest(".nav-dropdown");
+      const menu = dropdown?.querySelector(".dropdown-menu");
+      if (menu) {
+        dropdown.classList.toggle("active");
+      }
+    }
+  });
+});
