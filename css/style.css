@@ -50,6 +50,10 @@ h1, h2, h3, h4, h5, h6 {
   padding: 4rem 0; 
 }
 
+.vis-dev-section-first {
+  padding-top: 1rem;
+}
+
 .section-title {
   font-size: 2rem;
   font-weight: 400;
@@ -243,6 +247,23 @@ nav {
   letter-spacing: 0.05em;
 }
 
+/* Inline Hero Title in Section */
+.hero-title-inline {
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.25rem;
+  margin-top: 0;
+}
+
+.hero-subtitle-inline {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+}
+
 /* ---------- PORTFOLIO GRID ---------- */
 .portfolio-main {
   padding: 2rem 0 4rem;
@@ -265,12 +286,20 @@ nav {
 
 .vis-dev-item {
   width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .vis-dev-image-wrapper {
   padding-top: 56.25%; /* 16:9 aspect ratio (1080/1920 = 0.5625) */
   max-width: 1920px;
   margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.vis-dev-image-wrapper img {
+  border-radius: 12px;
 }
 
 /* Illustration Grid - Portrait 1080×1920 (9:16) */
