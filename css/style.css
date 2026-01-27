@@ -305,6 +305,7 @@ nav {
   position: relative;
   cursor: pointer;
   overflow: hidden;
+  border-radius: 12px;
 }
 
 .illustration-image-wrapper {
@@ -313,6 +314,11 @@ nav {
   padding-top: 177.78%; /* 9:16 portrait aspect ratio (1920/1080 = 1.7778) */
   overflow: hidden;
   background: var(--bg-secondary);
+  border-radius: 12px;
+}
+
+.illustration-image-wrapper img {
+  border-radius: 12px;
 }
 
 .portfolio-item {
