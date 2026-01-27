@@ -255,6 +255,66 @@ nav {
   margin-top: 2rem;
 }
 
+/* Visual Development Grid - FHD Display */
+.vis-dev-grid {
+  grid-template-columns: 1fr;
+  max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vis-dev-item {
+  width: 100%;
+}
+
+.vis-dev-image-wrapper {
+  padding-top: 56.25%; /* 16:9 aspect ratio (1080/1920 = 0.5625) */
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+/* Illustration Grid - Portrait 1080×1920 (9:16) */
+.illustration-section {
+  padding: 1.5rem 0;
+}
+
+.illustration-section .container {
+  padding: 0 1rem;
+}
+
+.illustration-grid {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .illustration-grid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 0.75rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .illustration-grid {
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  }
+}
+
+.illustration-item {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.illustration-image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 177.78%; /* 9:16 portrait aspect ratio (1920/1080 = 1.7778) */
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+
 .portfolio-item {
   position: relative;
   cursor: pointer;
